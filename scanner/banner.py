@@ -1,9 +1,10 @@
 import socket
+from config import TIMEOUT
 
 def grab_banner(target_ip, port):
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
+        sock.settimeout(TIMEOUT)
 
         sock.connect((target_ip, port))
 

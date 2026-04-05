@@ -1,4 +1,3 @@
-import threading
 from scanner.banner import grab_banner
 
 def worker(queue, target_ip, results, scan_port):
