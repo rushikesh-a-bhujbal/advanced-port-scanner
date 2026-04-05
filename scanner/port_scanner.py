@@ -1,4 +1,7 @@
 import socket
+import threading
+import queue
+from scanner.worker import worker
 
 def scan_port(target_ip, port):
     try:
@@ -18,9 +21,33 @@ def scan_port(target_ip, port):
         return False
 
 
+
+def scan_ports(target_ip, start_port, end_port):
+    q = queue.Queue()
+    results = []
+
+    # fill queue
+    for port in range(start_port, end_port + 1):
+        q.put(port)
+
+    threads = []
+
+    # create threads
+    for _ in range(100):
+        t = threading.Thread(target=worker, args=(q, target_ip, results, scan_port))
+        t.start()
+        threads.append(t)
+
+    # wait for queue to finish
+    q.join()
+
+    return results
+
+
 if __name__ == "__main__":
     target = "scanme.nmap.org"
     ip = socket.gethostbyname(target)
 
-    print("Port 80:", scan_port(ip, 80))
-    print("Port 81:", scan_port(ip, 81))
+    open_ports = scan_ports(ip, 75, 85)
+
+    print("Open ports:", open_ports)
