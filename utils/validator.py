@@ -23,8 +23,21 @@ def is_valid_domain(target):
     return True
 
 
+def validate_target(target):
+    if is_valid_ip(target):
+        return target
 
-print(is_valid_domain("google.com"))
-print(is_valid_domain("abc..com"))
-print(is_valid_domain(".com"))
-print(is_valid_domain("nodot"))
+    if is_valid_domain(target):
+        return target
+
+    raise ValueError("Invalid target")
+
+
+
+print(validate_target("192.168.1.1"))
+print(validate_target("google.com"))
+
+try:
+    print(validate_target("abc..com"))
+except ValueError as e:
+    print(e)
