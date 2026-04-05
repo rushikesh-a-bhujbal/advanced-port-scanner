@@ -45,9 +45,10 @@ def scan_ports(target_ip, start_port, end_port):
 
 
 if __name__ == "__main__":
+    import socket
+
     target = "scanme.nmap.org"
     ip = socket.gethostbyname(target)
 
-    open_ports = scan_ports(ip, 75, 85)
-
-    print("Open ports:", open_ports)
+    open_ports = scan_ports(ip, 20, 90)
+    print(open_ports)
