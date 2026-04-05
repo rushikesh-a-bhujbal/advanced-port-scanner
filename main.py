@@ -18,6 +18,9 @@ def main():
         target_ip = resolve_target(args.target)
 
         # Parse and validate ports
+        if "-" not in args.ports:
+            raise ValueError("Port range must be in format start-end")
+
         start_port, end_port = args.ports.split("-")
         start_port, end_port = validate_port_range(start_port, end_port)
 
