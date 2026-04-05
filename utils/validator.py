@@ -7,6 +7,24 @@ def is_valid_ip(target):
     except:
         return False
 
+def is_valid_domain(target):
+    if not target:
+        return False
 
-print(is_valid_ip("192.168.1.1"))
-print(is_valid_ip("999.999.999.999"))
+    if "." not in target:
+        return False
+
+    if target.startswith(".") or target.endswith("."):
+        return False
+
+    if ".." in target:
+        return False
+
+    return True
+
+
+
+print(is_valid_domain("google.com"))
+print(is_valid_domain("abc..com"))
+print(is_valid_domain(".com"))
+print(is_valid_domain("nodot"))
