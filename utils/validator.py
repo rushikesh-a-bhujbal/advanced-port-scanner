@@ -34,10 +34,31 @@ def validate_target(target):
 
 
 
-print(validate_target("192.168.1.1"))
-print(validate_target("google.com"))
+def validate_port_range(start, end):
+    try:
+        start = int(start)
+        end = int(end)
+    except:
+        raise ValueError("Ports must be integers")
+
+    if start < 1 or end > 65535:
+        raise ValueError("Ports must be between 1 and 65535")
+
+    if start > end:
+        raise ValueError("Start port cannot be greater than end port")
+
+    return start, end
+
+
+
+print(validate_port_range(20, 80))
 
 try:
-    print(validate_target("abc..com"))
+    print(validate_port_range(0, 80))
+except ValueError as e:
+    print(e)
+
+try:
+    print(validate_port_range(100, 50))
 except ValueError as e:
     print(e)
