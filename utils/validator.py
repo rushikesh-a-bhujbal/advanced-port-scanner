@@ -51,14 +51,3 @@ def validate_port_range(start, end):
 
 
 
-print(validate_port_range(20, 80))
-
-try:
-    print(validate_port_range(0, 80))
-except ValueError as e:
-    print(e)
-
-try:
-    print(validate_port_range(100, 50))
-except ValueError as e:
-    print(e)
