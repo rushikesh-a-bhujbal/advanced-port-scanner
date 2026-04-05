@@ -2,6 +2,7 @@ import socket
 import threading
 import queue
 from scanner.worker import worker
+from utils.formatter import format_results
 
 def scan_port(target_ip, port):
     try:
@@ -51,4 +52,4 @@ if __name__ == "__main__":
     ip = socket.gethostbyname(target)
 
     open_ports = scan_ports(ip, 20, 90)
-    print(open_ports)
+    format_results(open_ports)
