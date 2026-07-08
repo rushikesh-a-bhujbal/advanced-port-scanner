@@ -1,0 +1,16 @@
+[project]
+name = "recon-scanner"
+version = "1.0.0"
+description = "Multi-threaded TCP connect-scan port scanner with banner grabbing"
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
