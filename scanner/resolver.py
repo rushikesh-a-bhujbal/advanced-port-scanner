@@ -1,27 +1,16 @@
 import socket
-from utils.validator import is_valid_ip, is_valid_domain
 
-def resolve_target(target):
-    if is_valid_ip(target):
-        return target
-
-    if is_valid_domain(target):
-        try:
-            ip = socket.gethostbyname(target)
-            return ip
-        except socket.gaierror:
-            raise ValueError("Could not resolve domain")
-
-    raise ValueError("Invalid target")
+from utils.validator import is_valid_ip, validate_target
 
 
+def resolve_target(target: str) -> str:
+    """Validate target, then resolve it to an IPv4 address (via DNS if it's a domain)."""
+    validated = validate_target(target)
 
-
-if __name__ == "__main__":
-    print(resolve_target("192.168.1.1"))
-    print(resolve_target("google.com"))
+    if is_valid_ip(validated):
+        return validated
 
     try:
-        print(resolve_target("abc..com"))
-    except ValueError as e:
-        print(e)
+        return socket.gethostbyname(validated)
+    except socket.gaierror as exc:
+        raise ValueError(f"Could not resolve domain: {target}") from exc
